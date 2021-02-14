@@ -5,6 +5,8 @@ import AdminHomeBg from '../../assets/adminHomeBg.jpg';
 import { useSelector } from 'react-redux';
 import { selectAuthState, selectIsAdmin } from '../../redux/auth/authSlice';
 import AuthConstants from '../../constants/AuthConstants';
+import RouteConstants from '../../constants/RouteConstants';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,7 +37,8 @@ const AdminHome: React.FC = (): JSX.Element => {
                 <Typography color="primary" variant="h1">
                     Firebase Admin Panel
                 </Typography>
-                {(authState === AuthConstants.Authenticated) && <Button variant="outlined" disabled={!isAdmin} color="primary" size="large" startIcon={<Icon>star</Icon>} endIcon={<Icon>star</Icon>}>
+                {(authState === AuthConstants.Authenticated) && 
+                <Button variant="outlined" component={Link} to={RouteConstants.ADMIN_MENU} disabled={!isAdmin} color="primary" size="large" startIcon={<Icon>star</Icon>} endIcon={<Icon>star</Icon>}>
                     Go to Administration
                 </Button>}
             </Container>

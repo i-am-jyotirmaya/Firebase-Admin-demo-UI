@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import AuthConstants from "../../constants/AuthConstants";
+import { getErrorMessage } from "../../services/errorHandler";
 import Emitter from "../../services/eventEmitter";
 import { loginWithFirebase, logoutWithFirebase, signupWithFirebase, checkAdminWithFirebase, refreshLoginWithFirebase } from "../../services/firebase";
 import { AppDispatch, RootState } from "../store";
@@ -27,14 +28,7 @@ export const authSlice = createSlice({
         },
         loginError: (state, action) => {
             state.authState = AuthConstants.NotAuthenticated;
-            switch(action.payload) {
-                case "auth/wrong-password":
-                    state.error = "Invalid Password!";
-                    break;
-                case "auth/user-not-found":
-                    state.error = "User not found!";
-                    break;
-            }
+            state.error = getErrorMessage(action.payload);
         },
         clearError: (state) => {
             state.error = ''
